@@ -1,0 +1,9 @@
+On console 
+
+    npm bot.js
+
+auto run with nodemon
+
+    npm run dev
+
+.
