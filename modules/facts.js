@@ -1,68 +1,3 @@
-//imports
-const Telegraf = require('telegraf')
-const RedisSession = require('telegraf-session-redis')
-const moment = require('moment')
-
-const bot = new Telegraf('1221066742:AAEg77C9lDYcrPvWQakNhrdppoig8pIof4s')
-
-//! time server refresh auto fix
-let now = moment();
-
-
-
-bot.start((ctx) => {
-	ctx.reply('Voy a inicar cuando quiera')
-})
-
-bot.help((ctx) => {
-	ctx.reply('ayuda')
-})
-
-bot.command('dame', (ctx) => {
-	ctx.reply(now)
-})
-
-// ? rewrite
-
-bot.command('details', (ctx) => {
-	ctx.reply(ctx.chat[0])
-	ctx.reply(ctx.from[0])
-	ctx.reply(ctx.message)
-	ctx.reply('Tipo: '+ ctx.updateSubTypes)
-})
-
-bot.command('facts', ctx => {
-	ctx.reply(facts())
-})
-
-var foo = "wd"
-
-bot.command('suerte', ctx => {
-	if (now % 2 === 0) {
-		ctx.reply('Suertudisimo')
-	} else {
-		ctx.reply('Andas yeta capo')
-	}
-})
-
-bot.hears('hola chato', (ctx) => {
-	ctx.reply('chau')
-})
-
-//?send image from unplash commnad
-//TODO regex to scope /imagen
-
-bot.command('imagen', (ctx) => {
-	ctx.replyWithPhoto(`https://source.unsplash.com/random/?${ctx.message.text}`,)
-	//ctx.replyWithPhoto('https://source.unsplash.com/random/?' + ctx.message.text)
-})
-
-
-
-//?chatid command
-bot.command('chatid', (ctx) => ctx.reply(ctx.chat.id))
-
-//?facts command
 function facts() {
 
     let factsJson = [
@@ -82,8 +17,9 @@ function facts() {
 		'El chocolate blanco no es chocolate',
 		'La Dankie tendra donaciones voluntarias. Cuando eso pase, yo sere el mejor',
 		'pusetodo un Json en el main porque nose exportar en URL'
-	]
+	 ]
 
+	//return random fasts to string
 	let random = []
 	let position = []
 	let r
@@ -96,6 +32,6 @@ function facts() {
 	return random.toString()
 }
 
-//launch
-bot.launch()
-
+module.exports = {
+    facts
+};

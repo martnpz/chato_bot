@@ -7,3 +7,4 @@ auto run with nodemon
     npm run dev
 
 .
+"dev": "nodemon bot.js"
