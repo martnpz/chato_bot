@@ -1,29 +1,35 @@
 //imports
 const Telegraf = require('telegraf')
-const RedisSession = require('telegraf-session-redis')
 const moment = require('moment')
 
 const bot = new Telegraf('1221066742:AAEg77C9lDYcrPvWQakNhrdppoig8pIof4s')
-
-//! time server refresh auto fix
-let now = moment();
-
-
 
 bot.start((ctx) => {
 	ctx.reply('Voy a inicar cuando quiera')
 })
 
-bot.help((ctx) => {
-	ctx.reply('ayuda')
-})
+/*bot.help((ctx) => {
+	disable_web_page_preview: true,
+	ctx.replyWithMarkdown(
+	'/start arranco' + '<br />' +
+	'/commands comandos' + '<br />' + 
+	'/dame te doy la hora' + '<br />' + 
+	'/suerte digo que tal andas de suerte' + '<br />' +
+	'/facts hechos curisos' + '<br />' +
+	'/imagen mando la img que pidas en ingles' + '<br />' +
+	'/chatid id del grupo' + '<br />' +
+	'/details detalles del mensaje' 
+	)
+})*/
 
+bot.help((ctx) => ctx.reply('Send me a sticker'))
+
+//? dame la hora command
 bot.command('dame', (ctx) => {
-	ctx.reply(now)
+	ctx.reply('Son las ' + moment().get('hour') + ' y ' + moment().get('minute') + ' con ' + moment().get('second') + 's')
 })
 
-// ? rewrite
-
+// ! rewrite
 bot.command('details', (ctx) => {
 	ctx.reply(ctx.chat[0])
 	ctx.reply(ctx.from[0])
@@ -31,20 +37,16 @@ bot.command('details', (ctx) => {
 	ctx.reply('Tipo: '+ ctx.updateSubTypes)
 })
 
-bot.command('facts', ctx => {
-	ctx.reply(facts())
-})
-
-var foo = "wd"
-
+//? suerte command
 bot.command('suerte', ctx => {
-	if (now % 2 === 0) {
+	if (moment().get('minute') % 2 === 0) {
 		ctx.reply('Suertudisimo')
 	} else {
 		ctx.reply('Andas yeta capo')
 	}
 })
 
+//?saludo
 bot.hears('hola chato', (ctx) => {
 	ctx.reply('chau')
 })
@@ -57,12 +59,27 @@ bot.command('imagen', (ctx) => {
 	//ctx.replyWithPhoto('https://source.unsplash.com/random/?' + ctx.message.text)
 })
 
+//? scores command
+bot.command('score', (ctx) => {
+	
+	const scores = Math.floor(Math.random() * (100 - 0) + 1)
+	ctx.reply(`${ctx.message.from.username}: ${scores}`)
+})
 
+
+bot.command('mes', (ctx) => {
+	ctx.reply(moment().get('month'))
+})
 
 //?chatid command
 bot.command('chatid', (ctx) => ctx.reply(ctx.chat.id))
 
 //?facts command
+bot.command('facts', ctx => {
+	ctx.reply(facts())
+})
+
+//?facts function
 function facts() {
 
     let factsJson = [
