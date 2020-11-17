@@ -2,7 +2,7 @@
 const Telegraf = require('telegraf')
 const moment = require('moment')
 
-const bot = new Telegraf('1221066742:AAEg77C9lDYcrPvWQakNhrdppoig8pIof4s')
+const bot = new Telegraf('BOT_TOKEN')
 
 bot.start((ctx) => {
 	ctx.reply('Voy a inicar cuando quiera')
